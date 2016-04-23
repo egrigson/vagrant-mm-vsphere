@@ -1,7 +1,7 @@
 # vagrant-mm-vsphere
 A multi-machine Vagrant configuration
 
-These files were created to allow users to use Vagrant (http://www.vagrantup.com) to quickly and relatively easily provision multiple VMs in a vSphere environment. The configuration was tested using Vagrant 1.8.1, vSphere 6.0, and the Vagrant vSphere plugin from .
+These files were created to allow users to use Vagrant (http://www.vagrantup.com) to quickly and relatively easily provision multiple VMs in a vSphere environment. The configuration was tested using Vagrant 1.8.1, vSphere 6.0, and the [Vagrant vSphere plugin](https://github.com/nsidc/vagrant-vsphere).
 
 ## Contents
 **README.md**: This file you're currently reading.
