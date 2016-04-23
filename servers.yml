@@ -1,0 +1,14 @@
+---
+- name: centos-01
+  template: '/templates/EG/CentOS 7.2 template'
+  ram: 512
+  ip: 10.17.107.120
+- name: centos-02
+  template: /templates/EG/CentOS 7.2 template
+  ram: 512
+  ip: 10.17.107.121
+- name: rhel-03
+  template: /templates/EG/RHEL v7.2 template
+  ram: 512
+  ip: 10.17.107.122
+
