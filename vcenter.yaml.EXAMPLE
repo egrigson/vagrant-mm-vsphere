@@ -1,0 +1,6 @@
+---
+vcenter_srv:	'vCenter IP or DNS'
+cluster:	'cluster name'
+username:	'user@domain'
+password:	'password'
+secure:		'true'
