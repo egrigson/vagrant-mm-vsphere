@@ -25,7 +25,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.define servers["name"] do |srv|
 
       # configure per VM parameters
-      #srv.vm.box = "vsphere-dummy"
       srv.vm.network "private_network", ip: servers["ip"]
       srv.vm.hostname = servers["name"]
       srv.vm.provider :vsphere do |vsphere|
