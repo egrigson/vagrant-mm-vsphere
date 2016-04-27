@@ -16,34 +16,36 @@ vcenter = YAML.load_file(File.join(File.dirname(__FILE__),'vcenter.yaml'))
 # Create boxes
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
  
-  # Iterate through entries in YAML file
+# configure VM defaults (global for all VMs)
+config.vm.box = "vsphere-dummy"
+config.vm.synced_folder ".", "/vagrant", disabled: true
+
+# define provider specific defaults (vCenter info)
+config.vm.provider :vsphere do |vsphere|
+  vsphere.host = 			vcenter["vcenter_srv"]
+  vsphere.compute_resource_name = 	vcenter["cluster"]
+  vsphere.user = 			vcenter["username"]
+  vsphere.password =			vcenter["password"]
+  vsphere.insecure =			vcenter["secure"] 
+end
+ 
+# Iterate through entries in YAML file
   servers.each do |servers|
 
-    # configure VM defaults (global for all VMs)
-    config.vm.box = "vsphere-dummy"
-    config.vm.synced_folder ".", "/vagrant", disabled: true
+    # Use multi-machine definition
     config.vm.define servers["name"] do |srv|
 
-      # configure per VM parameters
+      # define generic per-VM settings
       srv.vm.network "private_network", ip: servers["ip"]
       srv.vm.hostname = servers["name"]
+
+      # define provider specific, per-VM settings
       srv.vm.provider :vsphere do |vsphere|
-
-        # define provider specific environment constants
-        vsphere.host = 			vcenter["vcenter_srv"]
-        vsphere.compute_resource_name = vcenter["cluster"]
-        vsphere.user = 			vcenter["username"]
-        vsphere.password =		vcenter["password"]
-        vsphere.insecure =		vcenter["secure"] 
-
-        # define provider specific, per-VM settings
-        #the following vary based on the imported YAML file
         vsphere.template_name = 	servers["template"]
         vsphere.name = 			servers["name"]
         vsphere.memory_mb = 		servers["ram"]
         vsphere.data_store_name = 	servers["datastore"] 
         vsphere.vm_base_path = 		servers["vm_path"] 
-
       end
     end
   end
